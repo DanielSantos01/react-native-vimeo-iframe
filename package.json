@@ -1,28 +1,26 @@
 {
-  "_from": "react-native-vimeo-iframe",
+  "_from": "git+https://github.com/DanielSantos01/react-native-vimeo-iframe.git",
   "_id": "react-native-vimeo-iframe@1.0.1",
   "_inBundle": false,
-  "_integrity": "sha512-BCLhAekmevzClRgze6fcP8P58M+uSIMn7YiyAS5jOb6S5v86emBtKPbsx6EJ1F9oQAKi8SWgVP9FrncAXy7EoQ==",
+  "_integrity": "",
   "_location": "/react-native-vimeo-iframe",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "react-native-vimeo-iframe",
-    "name": "react-native-vimeo-iframe",
-    "escapedName": "react-native-vimeo-iframe",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+    "type": "git",
+    "raw": "git+https://github.com/DanielSantos01/react-native-vimeo-iframe.git",
+    "rawSpec": "git+https://github.com/DanielSantos01/react-native-vimeo-iframe.git",
+    "saveSpec": "git+https://github.com/DanielSantos01/react-native-vimeo-iframe.git",
+    "fetchSpec": "https://github.com/DanielSantos01/react-native-vimeo-iframe.git",
+    "gitCommittish": null
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/react-native-vimeo-iframe/-/react-native-vimeo-iframe-1.0.1.tgz",
+  "_resolved": "git+https://github.com/DanielSantos01/react-native-vimeo-iframe.git#b214e0cbb5bf5610df09cbebfefef5149f34e3ea",
   "_shasum": "38d8e0872c9a7583f9db4e09c139cfbc70e254f8",
-  "_spec": "react-native-vimeo-iframe",
-  "_where": "C:\\Users\\Danie\\Documents\\projects\\prepi\\prepi-app",
+  "_spec": "git+https://github.com/DanielSantos01/react-native-vimeo-iframe.git",
+  "_where": "/home/daniel/Documentos/projects/prepi/prepi-app",
   "author": {
     "name": "Marco Fiorito",
     "email": "marcofiorito1@gmail.com"

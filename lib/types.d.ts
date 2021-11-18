@@ -30,3 +30,4 @@ export type PossiblePlayerActions =
   |{ type: 'pause'; }
   |{ type: 'get_duration'; callback: (duration: number) => void; }
   |{ type: 'set_time'; time: number; }
+  |{ type: 'get_time'; callback: (time: number) => void; }

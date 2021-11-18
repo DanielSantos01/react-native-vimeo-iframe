@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { WebView } from 'react-native-webview';
 
 import webplayer from '../lib/template';
@@ -13,7 +13,6 @@ export const Vimeo: React.FC<LayoutProps> = ({
   onFinish,
   onVolumeChange,
   onError,
-  scalesPageToFit,
   loop,
   controls,
   autoPlay,
@@ -24,10 +23,10 @@ export const Vimeo: React.FC<LayoutProps> = ({
 }) => {
   const [isPlaying, setPlaying] = useState<boolean>(false);
   const [autoPlayValue, setAutoPlay] = useState<boolean>(autoPlay);
+  const [handlers, setHandlers] = useState({});
   const ref = useRef<WebView>();
-  const handlers: any = {};
 
-  const player = useCallback((action: PossiblePlayerActions) => {
+  const player = (action: PossiblePlayerActions) => {
     const handler = ref.current.injectJavaScript;
 
     switch(action.type) {
@@ -48,55 +47,43 @@ export const Vimeo: React.FC<LayoutProps> = ({
         registerBridgeEventHandler('duration', action.callback);
         handler('getDuration();');
         break;
+      case 'get_time':
+        registerBridgeEventHandler('currentTime', action.callback);
+        handler('getTime();');
+        break;
       default:
         break;
     }
-  }, [ref, isPlaying]);
+  };
 
-  const toggleAutoPlay = useCallback(() => {
-    setAutoPlay(!autoPlayValue);
-  }, [autoPlayValue]);
+  const registerHandlers = () => {
+    setHandlers({
+      'ready': onReady,
+      'play': onPlay,
+      'playProgress': onPlayProgress,
+      'pause': onPause,
+      'finish': onFinish,
+      'volumeChange': onVolumeChange,
+      'error': onError,
+    });
+  };
 
-  const onReadyDefault = useCallback(() => {
-    onReady && setTimeout(onReady);
-  }, [onReady]);
+  const registerBridgeEventHandler = (eventName: string, handler: any) => {
+    const newHandlers = {...handlers};
+    newHandlers[eventName] = handler;
+    setHandlers(newHandlers);
+  };
 
-  const registerHandlers = useCallback(() => {
-    registerBridgeEventHandler('ready', onReady || onReadyDefault);
-    registerBridgeEventHandler('play', onPlay);
-    registerBridgeEventHandler('playProgress', onPlayProgress);
-    registerBridgeEventHandler('pause', onPause);
-    registerBridgeEventHandler('finish', onFinish);
-    registerBridgeEventHandler('volumeChange', onVolumeChange);
-    registerBridgeEventHandler('error', onError);
-  }, [
-    onReady,
-    onReadyDefault,
-    onPlay,
-    onPlayProgress,
-    onPause,
-    onFinish,
-  ]);
-
-  const registerBridgeEventHandler = useCallback((eventName: string, handler: any) => {
-    handlers[eventName] = handler;
-  }, [handlers]);
-
-  const onBridgeMessage = useCallback((event: any) => {
+  const onBridgeMessage = (event: any) => {
     const message = event.nativeEvent.data;
     const payload = JSON.parse(message);
-    try {
-      if (payload?.name === 'finish') toggleAutoPlay();
-    } catch (err) {
-      return;
-    }
     const handler = handlers[payload.name];
     handler && handler(payload.data);
-  }, [toggleAutoPlay]);
+  };
 
   useEffect(() => {
     registerHandlers();
-  }, [registerHandlers, videoId, scalesPageToFit]);
+  }, []);
 
   useEffect(() => {
     getVimeoPlayer && getVimeoPlayer(player);
