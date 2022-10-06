@@ -68,9 +68,7 @@
     "react-native-webview": "11.2.3"
   },
   "scripts": {
-    "compile": "rm -rf lib && tsc -p .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prepare": "yarn compile",
     "test": "jest"
   },
   "types": "lib/index.d.ts",
